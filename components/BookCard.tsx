@@ -1,47 +1,50 @@
 import Link from "next/link";
 
-export default function BookCard() {
+
+interface BookCardProps{
+  _id:string;
+  title:string;
+  author:string;
+  category:string;
+  publicationYear:number;
+  available:boolean
+}
+
+
+export default function BookCard({_id,title,author,category,publicationYear,available}:BookCardProps) {
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-lg">
-    
-      <div className="h-64 bg-slate-800 flex items-center justify-center">
-        <span className="text-slate-500">Book Image</span>
-      </div>
+    <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+      <h2 className="text-xl font-bold">{title}</h2>
 
-   
-      <div className="p-4">
-        <span className="inline-block bg-green-600 text-white text-xs px-2 py-1 rounded mb-3">
-          AVAILABLE
-        </span>
+      <p className="text-gray-400 mt-2">
+        Auteur : {author}
+      </p>
 
-        <p className="text-sm text-slate-400">
-          Fiction • 2020
-        </p>
+      <p className="text-gray-400">
+        Catégorie : {category}
+      </p>
 
-        <h3 className="text-xl font-semibold mt-2">
-          The Midnight Library
-        </h3>
+      <p className="text-gray-400">
+        Année : {publicationYear}
+      </p>
 
-        <p className="text-slate-400 mt-1">
-          Matt Haig
-        </p>
+      <span
+        className={`inline-block mt-4 px-3 py-1 rounded-full text-sm ${
+          available
+            ? "bg-green-600"
+            : "bg-red-600"
+        }`}
+      >
+        {available ? "Disponible" : "Emprunté"}
+      </span>
 
+      <div className="mt-5">
         <Link
-          href="/books/1"
-          className="block text-center bg-slate-700 hover:bg-slate-600 rounded-lg py-2 mt-5"
+          href={`/books/${_id}`}
+          className="bg-blue-600 px-4 py-2 rounded-lg"
         >
           Voir détails
         </Link>
-
-        <div className="flex gap-2 mt-3">
-          <button className="flex-1 border border-slate-600 rounded-lg py-2 hover:bg-slate-800">
-            Modifier
-          </button>
-
-          <button className="flex-1 border border-red-500 text-red-400 rounded-lg py-2 hover:bg-red-950">
-            Supprimer
-          </button>
-        </div>
       </div>
     </div>
   );
