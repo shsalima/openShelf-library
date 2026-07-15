@@ -18,7 +18,7 @@ export const BookSchema=z.object({
         .string()
         .min(1, "La catégorie est obligatoire"),
     publicationYear:z.number({
-        error:"L'année doit être un nombre",
+        error:"L'année doit être nombre",
     }),
     description:z
         .string()
