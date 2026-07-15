@@ -1,54 +1,105 @@
+import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import Filter from "@/components/Filter";
-import Link from "next/link";
+import BookCard from "@/components/BookCard";
+import { getBooks } from "@/services/book.service";
 
-export default function Home() {
+export default async function Home() {
+  const books = await getBooks();
+
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-    
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl font-bold">
+    <main className="min-h-screen bg-[#071321] text-white">
+
+
+      <section className="max-w-7xl mx-auto px-6 pt-12">
+
+        <div className="max-w-2xl">
+          <h1 className="text-5xl font-bold text-slate-200">
             Modern Library Management
           </h1>
 
-          <p className="mt-5 text-slate-400 text-lg leading-8">
-            Discover, manage and organize your library with a modern and
-            intuitive interface.
+          <p className="mt-4 text-lg text-slate-400 leading-8">
+            Organize your literary world with ease. Explore our curated
+            collection, manage your borrowings, and keep track of your reading
+            progress in one focused environment.
           </p>
-
-          <div className="flex gap-4 mt-8">
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition">
-              Browse Collection
-            </button>
-
-            <Link
-              href="/books/create"
-              className="border border-slate-600 hover:bg-slate-800 px-6 py-3 rounded-lg font-medium transition"
-            >
-              Add New Book
-            </Link>
-          </div>
         </div>
+
       </section>
 
-      <section className="max-w-7xl mx-auto px-6">
-        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
-          <h2 className="text-sm font-semibold text-slate-300 mb-4">
-            Find a book
-          </h2>
+     
+      <section className="max-w-7xl mx-auto px-6 mt-10">
 
-          <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-[#0D1B2A] border border-slate-700 rounded-lg p-6">
+
+          <div className="flex flex-col lg:flex-row justify-between gap-6">
+
             <div className="flex-1">
+              <h3 className="text-sm font-semibold mb-3">
+                Find a book
+              </h3>
+
               <SearchBar />
             </div>
 
-            <div className="w-full md:w-60">
+            <div className="w-full lg:w-52">
+              <h3 className="text-sm font-semibold mb-3">
+                Availability
+              </h3>
+
               <Filter />
             </div>
+
           </div>
+
         </div>
+
       </section>
+      <section className="max-w-7xl mx-auto px-6 py-10">
+
+        {books.length === 0 ? (
+          <div className="bg-[#0D1B2A] border border-slate-700 rounded-lg p-10 text-center">
+
+            <h2 className="text-2xl font-semibold">
+              No books available
+            </h2>
+
+            <p className="text-slate-400 mt-3">
+              Add your first book to start your collection.
+            </p>
+
+            <Link
+              href="/books/create"
+              className="inline-block mt-6 bg-slate-200 text-slate-900 px-6 py-3 rounded hover:bg-white transition"
+            >
+              Add a Book
+            </Link>
+
+          </div>
+        ) : (
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {books.map((book: any) => (
+
+              <BookCard
+                key={book._id}
+                _id={book._id}
+                title={book.title}
+                author={book.author}
+                category={book.category}
+                publicationYear={book.publicationYear}
+                available={book.available}
+              />
+
+            ))}
+
+          </div>
+
+        )}
+
+      </section>
+
     </main>
   );
 }
