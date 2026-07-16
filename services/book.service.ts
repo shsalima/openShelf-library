@@ -19,6 +19,8 @@ export async function getBooks(){
 
 
 export async function getBook(id:string) {
+    console.log(id);
+    
     const res=await fetch(`http://localhost:3000/api/books/${id}`,{
         cache:"no-store",
 

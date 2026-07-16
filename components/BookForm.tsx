@@ -1,7 +1,8 @@
 "use client";
 
+
 import { useRouter } from "next/navigation";
-import { title } from "process";
+
 import React, { useState } from "react";
 
 export default function BookForm() {
@@ -54,12 +55,14 @@ export default function BookForm() {
             if(!response.ok){
                 throw new Error("Erreur lors de l'ajout du livre")
             }
+            console.log("ajouter livre");
+            
             router.push("/")
             router.refresh()
         }catch (error) {
-    console.log(error);
-    alert("Erreur lors de l'ajout du livre");
-  }
+            console.log(error);
+            alert("Erreur lors de l'ajout du livre");
+        }
     }
 
 
@@ -234,7 +237,7 @@ export default function BookForm() {
             </div>
 
           </div>
-          
+
         </form>
 
       </div>
