@@ -1,3 +1,4 @@
+import { ok } from "assert";
 
 
 export async function getBooks(){
@@ -30,4 +31,20 @@ export async function getBook(id:string) {
     }
     return res.json()
     
+}
+
+export async function updateBook(id:string,data:any){
+
+    const res=await fetch(`http://localhost:3000/api/books/${id}`,{
+        method:"PUT",
+        headers:{
+            "Content-Type": "application/json",
+        },
+        body:JSON.stringify(data)
+    })
+
+    if(!res.ok){
+        throw new Error("Erreur lors de la modification du livre")
+    }
+     return res.json();
 }
