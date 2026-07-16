@@ -48,3 +48,18 @@ export async function updateBook(id:string,data:any){
     }
      return res.json();
 }
+
+
+
+
+export async function deleteBook(id: string) {
+  const res = await fetch(`http://localhost:3000/api/books/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Erreur lors de la suppression");
+  }
+
+  return res.json();
+}

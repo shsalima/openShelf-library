@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Pencil, Trash2 } from "lucide-react";
+import DeleteButton from "./DeleteButton";
 
 interface BookCardProps {
   _id: string;
@@ -63,12 +64,7 @@ export default function BookCard({
         Modifier
       </Link>
 
-      <button
-        className="flex items-center justify-center gap-2 border border-slate-600 py-2 rounded text-red-400 hover:bg-slate-800 transition"
-      >
-        <Trash2 size={15} />
-        Supprimer
-      </button>
+      <DeleteButton id={_id} />
     </div>
   </div>
 

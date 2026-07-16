@@ -93,3 +93,37 @@ export async function PUT(request:Request, {params}:{params:Promise<{id:string}>
     }
 
 }
+
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    await connectDB();
+
+    const { id } = await params;
+
+    const book = await Book.findByIdAndDelete(id);
+
+    if (!book) {
+      return NextResponse.json(
+        { message: "Livre introuvable" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Livre supprimé avec succès" },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { message: "Erreur serveur" },
+      { status: 500 }
+    );
+  }
+}

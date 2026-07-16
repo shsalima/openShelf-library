@@ -9,6 +9,7 @@ import {
   Hash,
   CheckCircle,
 } from "lucide-react";
+import DeleteButton from "@/components/DeleteButton";
 
 interface PageProps {
   params: Promise<{
@@ -98,7 +99,6 @@ export default async function BookDetailsPage({ params }: PageProps) {
 
           </div>
 
-          {/* Year */}
           <div className="bg-[#122033] border border-[#2A3A4F] rounded-xl p-5 flex items-center gap-4">
 
             <div className="w-12 h-12 rounded-lg bg-[#1A2A3F] flex items-center justify-center">
@@ -170,12 +170,7 @@ export default async function BookDetailsPage({ params }: PageProps) {
             Modifier ce livre
           </Link>
 
-          <button
-            className="flex justify-center items-center gap-2 border border-slate-600 text-red-400  hover:bg-slate-800 transition rounded-xl py-3 font-medium"
-          >
-            <Trash2 size={18} />
-            Supprimer
-          </button>
+          <DeleteButton id={book._id} />
 
         </div>
 
