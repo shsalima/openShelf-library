@@ -4,8 +4,19 @@ import Filter from "@/components/Filter";
 import BookCard from "@/components/BookCard";
 import { getBooks } from "@/services/book.service";
 
-export default async function Home() {
-  const books = await getBooks();
+interface HomeProps {
+  searchParams: Promise<{
+    search?: string;
+  }>;
+}
+
+export default async function Home({
+  searchParams,
+}: HomeProps) {
+  const { search = "" } = await searchParams;
+
+  const books = await getBooks(search);
+ 
 
   return (
     <main className="min-h-screen bg-[#071321] text-white">

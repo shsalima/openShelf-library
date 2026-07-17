@@ -2,7 +2,7 @@ import mongoose, { Model, Schema } from "mongoose";
 
 
 export interface IBook {
-    title:String;
+    title:string;
     author:string;
     isbn:string;
     category:string;

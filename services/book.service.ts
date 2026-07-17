@@ -1,8 +1,8 @@
 import { ok } from "assert";
 
 
-export async function getBooks(){
-    const response= await fetch("http://localhost:3000/api/books",{
+export async function getBooks(search = ""){
+    const response= await fetch(`http://localhost:3000/api/books?search=${search}`,{
         cache:"no-store",
 
 

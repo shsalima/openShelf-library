@@ -3,12 +3,30 @@ import { BookSchema } from "@/lib/validators";
 import Book from "@/models/Book";
 import {  NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     // console.log("trigger");
 
     await connectDB();
-    const books=await Book.find()
+    const { searchParams } = new URL(request.url);
+
+    const search = searchParams.get("search") || "";
+    const books = await Book.find({
+    $or: [
+    {
+      title: {
+        $regex: search,
+        $options: "i",
+      },
+    },
+    {
+      author: {
+        $regex: search,
+        $options: "i",
+      },
+    },
+  ],
+});
     return NextResponse.json(books,{status:200});
   } catch(error) {
     console.error(error);
