@@ -1,17 +1,24 @@
 import { ok } from "assert";
 
 
-export async function getBooks(search = ""){
-    const response= await fetch(`http://localhost:3000/api/books?search=${search}`,{
-        cache:"no-store",
-
-
-    })
-    if(!response.ok){
-        throw new Error("Erreur lors du chargement des livres")
+export async function getBooks(
+  search = "",
+  status = "All"
+) {
+  const response = await fetch(
+    `http://localhost:3000/api/books?search=${search}&status=${status}`,
+    {
+      cache: "no-store",
     }
-    return response.json()
+  );
+
+  if (!response.ok) {
+    throw new Error("Erreur lors du chargement des livres");
+  }
+
+  return response.json();
 }
+
 
 
 

@@ -7,15 +7,16 @@ import { getBooks } from "@/services/book.service";
 interface HomeProps {
   searchParams: Promise<{
     search?: string;
+     status?: string;
   }>;
 }
 
 export default async function Home({
   searchParams,
 }: HomeProps) {
-  const { search = "" } = await searchParams;
+const { search = "", status = "All" } = await searchParams;
 
-  const books = await getBooks(search);
+const books = await getBooks(search, status);
  
 
   return (
